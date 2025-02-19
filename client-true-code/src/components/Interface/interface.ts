@@ -13,3 +13,11 @@ export interface ApiResponseInterface {
   page: number;
   total: number;
 }
+
+export interface UsePostsOptions {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: string;
+  [key: string]: string | number | undefined; 
+}

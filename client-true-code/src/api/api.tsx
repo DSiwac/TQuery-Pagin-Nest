@@ -1,10 +1,14 @@
 import axios from "axios";
 import { ApiResponseInterface } from "../components/Interface/interface";
 
-const getData = async (): Promise<ApiResponseInterface> => {
+
+
+const getData = async (
+  queryParams: string = ""
+): Promise<ApiResponseInterface> => {
   try {
     const response = await axios.get<ApiResponseInterface>(
-      "http://localhost:3000/products/all"
+      `http://localhost:3000/products/all?${queryParams}`
     );
 
     return response.data;
