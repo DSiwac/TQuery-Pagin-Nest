@@ -30,7 +30,7 @@ export class ProductsService {
     try {
       const {
         page = 1,
-        limit = 5,
+        limit = 8,
         sortField,
         sortOrder,
         filterField,
