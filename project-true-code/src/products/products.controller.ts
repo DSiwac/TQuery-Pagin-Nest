@@ -21,7 +21,6 @@ import { ProductsService } from './products.service';
 import { CreateProductDTO, UpdateProductDTO } from './DTO/create-product.dto';
 import { Products } from '@prisma/client';
 
-
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {}
@@ -42,7 +41,7 @@ export class ProductsController {
   )
   async create(
     @Body() dto: CreateProductDTO,
-    @UploadedFiles() images: Express.Multer.File[], 
+    @UploadedFiles() images: Express.Multer.File[],
   ) {
     try {
       const imagesPaths = images ? images.map((image) => image.path) : [];
@@ -76,6 +75,11 @@ export class ProductsController {
       filterField,
       filterValue,
     });
+  }
+
+  @Get(':id') 
+  async getProduct(@Param('id', ParseIntPipe) id: number): Promise<Products> {
+    return this.productService.getProductById(id);
   }
 
   @Patch(':id')

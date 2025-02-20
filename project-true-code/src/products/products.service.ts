@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/configurations/prisma.service';
 import { Prisma, Products } from '@prisma/client';
 import { CreateProductDTO, UpdateProductDTO } from './DTO/create-product.dto';
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger(ProductsService.name);
   constructor(private readonly prisma: PrismaService) {}
 
   async createProduct(dto: CreateProductDTO) {
@@ -37,7 +38,7 @@ export class ProductsService {
         filterValue,
       } = query;
 
-      const parsedLimit = parseInt(String(limit), 10); 
+      const parsedLimit = parseInt(String(limit), 10);
 
       if (page <= 0 || parsedLimit <= 0) {
         throw new BadRequestException(
@@ -55,8 +56,8 @@ export class ProductsService {
       const products = await this.prisma.products.findMany({
         where,
         orderBy,
-        skip: (page - 1) * parsedLimit, 
-        take: parsedLimit, 
+        skip: (page - 1) * parsedLimit,
+        take: parsedLimit,
       });
 
       const total = await this.prisma.products.count({ where });
@@ -70,6 +71,26 @@ export class ProductsService {
     } catch (error) {
       console.error('Error getting all products:', error);
       throw new InternalServerErrorException('Failed to retrieve products');
+    }
+  }
+
+  async getProductById(id: number): Promise<Products> {
+    try {
+      const product = await this.prisma.products.findUnique({
+        where: { id },
+      });
+
+      if (!product) {
+        throw new NotFoundException(`Product with ID ${id} not found`);
+      }
+
+      return product;
+    } catch (error) {
+      this.logger.error(`Error getting product by ID ${id}:`, error.stack);
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Failed to retrieve product');
     }
   }
 
