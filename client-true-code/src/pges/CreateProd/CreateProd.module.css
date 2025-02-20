@@ -1,0 +1,103 @@
+
+.createProd {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.createProdContainer h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form input[type="text"],
+.form input[type="number"],
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box; 
+}
+
+.form textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.imageInputs {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.imageInputs input[type="text"] {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.imageList {
+  margin-bottom: 15px;
+}
+
+.imageItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.imageItem img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+
+@media (max-width: 600px) {
+  .createProdContainer {
+    padding: 10px;
+  }
+
+  .createProdContainer h1 {
+    font-size: 1.5em;
+  }
+
+  .form label {
+    font-size: 0.9em;
+  }
+
+  .form input[type="text"],
+  .form input[type="number"],
+  .form textarea {
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+  }
+
+  .imageInputs {
+    flex-direction: column;
+  }
+
+  .imageInputs input[type="text"] {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

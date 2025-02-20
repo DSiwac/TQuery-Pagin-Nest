@@ -17,7 +17,7 @@ export function usePosts(options: UsePostsOptions = {}) {
 
   const queryParams = new URLSearchParams({
     page: String(page),
-    lomit: String(limit),
+    limit: String(limit),
     sortBy: sortBy,
     sortOrder: sortOrder,
     ...filters,

@@ -1,0 +1,125 @@
+
+.productPage {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.productDetails {
+}
+
+.editForm {
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.photo {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+.discount {
+    font-size: 1em;
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.editButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.loading,
+.error,
+.notFound {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #777;
+}
+
+.error {
+    color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+    .productPage {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+
+    .description,
+    .price,
+    .discount {
+        font-size: 0.9em;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buttons > * {
+        margin-bottom: 10px;
+    }
+
+    .editButtons {
+        flex-direction: column;
+    }
+
+    .editButtons > * {
+        margin-bottom: 10px;
+    }
+}

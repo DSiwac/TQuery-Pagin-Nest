@@ -1,21 +1,27 @@
+import Button from "../../components/Button/Button";
 import { usePosts } from "../../hooks/usePosts";
 import styles from "./MainPage.module.css";
-import { useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 function MainPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 10;
   const sortBy = searchParams.get("sortBy") || "title";
   const sortOrder = searchParams.get("sortOrder") || "asc";
 
-  const { data, isError} = usePosts({
+  const { data, isError } = usePosts({
     page,
     limit,
     sortBy,
     sortOrder,
   });
+
+    const handleCreateClick = () => {
+      navigate("/create"); 
+    };
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({
@@ -25,8 +31,6 @@ function MainPage() {
       sortOrder,
     });
   };
-
-  
 
   if (isError) {
     return <div>Произошла ошибка при загрузке данных.</div>;
@@ -38,46 +42,53 @@ function MainPage() {
   return (
     <>
       <div className={styles.pagination}>
-        <button
+        <Button
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
         >
           Предыдущая
-        </button>
+        </Button>
         <span>
           Страница: {page} из {totalPages}
         </span>
-        <button
+        <Button
           onClick={() => handlePageChange(page + 1)}
           disabled={
             !data || page * limit >= totalProducts || page >= totalPages
           }
         >
           Следующая
-        </button>
+        </Button>
+        <Button onClick={handleCreateClick}>+</Button>
       </div>
       <div className={styles.main}>
         {data?.products?.length ? (
           data.products.map((product) => (
-            <div className={styles.card} key={product.id}>
-              <div className={styles.imageContainer}>
-                {product.images && product.images.length > 0 && (
-                  <img
-                    className={styles.photo}
-                    src={product.images[0]}
-                    alt={product.title}
-                  />
-                )}
+            <Link
+              to={`/product/${product.id}`}
+              className={styles.cardLink}
+              key={product.id}
+            >
+              <div className={styles.card}>
+                <div className={styles.imageContainer}>
+                  {product.images && product.images.length > 0 && (
+                    <img
+                      className={styles.photo}
+                      src={product.images[0]}
+                      alt={product.title}
+                    />
+                  )}
+                </div>
+                <div className={styles.details}>
+                  <h2 className={styles.title}>{product.title}</h2>
+                  <p className={styles.price}>${product.price}</p>
+                  <p className={styles.description}>{product.description}</p>
+                  <p className={styles.discount}>
+                    Скидка: {product.discountPercentage}%
+                  </p>
+                </div>
               </div>
-              <div className={styles.details}>
-                <h2 className={styles.title}>{product.title}</h2>
-                <p className={styles.price}>${product.price}</p>
-                <p className={styles.description}>{product.description}</p>
-                <p className={styles.discount}>
-                  Скидка: {product.discountPercentage}%
-                </p>
-              </div>
-            </div>
+            </Link>
           ))
         ) : (
           <div>Нет товаров, соответствующих выбранным критериям.</div>
